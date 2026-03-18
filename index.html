@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Specialist Supported Housing | Leading Property Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Cinzel:wght@400;700;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --navy: #031329;
+    --rose: #c99383;
+    --white: #ffffff;
+    --rose-light: #d9ac9e;
+    --rose-dark: #a87060;
+    --navy-mid: #0a2248;
+    --navy-light: #122a50;
+    --overlay: rgba(3,19,41,0.82);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .font-display {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    letter-spacing: 0.08em;
+  }
+  .font-slogan {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  .font-body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  /* ===== POPUP ===== */
+  #popup-overlay {
+    position: fixed; inset: 0;
+    background: rgba(3,19,41,0.92);
+    z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+  #popup {
+    background: var(--navy-mid);
+    border: 1px solid var(--rose);
+    max-width: 560px; width: 100%;
+    padding: 2.5rem 2rem;
+    position: relative;
+    animation: slideUp 0.45s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  }
+  @keyframes slideUp { from { transform: translateY(40px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+
+  #popup::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--rose-dark), var(--rose-light), var(--rose-dark));
+  }
+
+  #popup-close {
+    position: absolute; top: 1rem; right: 1.2rem;
+    background: none; border: none; color: var(--rose);
+    font-size: 1.6rem; cursor: pointer; line-height:1;
+    transition: color 0.2s;
+  }
+  #popup-close:hover { color: var(--white); }
+
+  .popup-badge {
+    display: inline-block;
+    background: var(--rose);
+    color: var(--navy);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .popup-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .popup-sub {
+    color: var(--rose-light);
+    font-size: 1rem;
+    margin-bottom: 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .form-row-full { margin-bottom: 0.8rem; }
+
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--rose);
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,147,131,0.3);
+    color: var(--white);
+    padding: 0.7rem 0.9rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--rose);
+    background: rgba(201,147,131,0.07);
+  }
+  .form-group select option { background: var(--navy-mid); color: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .phone-row { display: grid; grid-template-columns: 140px 1fr; gap: 0.5rem; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--rose);
+    color: var(--navy);
+    border: none;
+    padding: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--rose-light); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  .form-disclaimer {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.8rem;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .form-success h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--rose);
+    margin-bottom: 0.5rem;
+  }
+  .form-success p { color: rgba(255,255,255,0.7); }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(3,19,41,0.95);
+    border-bottom: 1px solid rgba(201,147,131,0.2);
+    backdrop-filter: blur(10px);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 0.7rem 3rem; }
+
+  .nav-brand {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-decoration: none;
+    line-height: 1.3;
+  }
+  .nav-brand span { display: block; font-size: 0.65em; color: var(--rose); letter-spacing: 0.2em; }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+
+  .nav-cta {
+    background: var(--rose);
+    color: var(--navy) !important;
+    padding: 0.5rem 1.2rem;
+    font-weight: 700;
+  }
+  .nav-cta:hover { background: var(--rose-light) !important; color: var(--navy) !important; }
+
+  .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--rose); margin: 5px 0; transition: all 0.3s; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #031329 0%, #0a1e3d 50%, #031329 100%);
+  }
+
+  /* SVG pattern overlay */
+  .hero-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c99383' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Gold diagonal accent */
+  .hero-accent {
+    position: absolute;
+    top: 0; right: 0;
+    width: 45%;
+    height: 100%;
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+    background: linear-gradient(160deg, rgba(201,147,131,0.07) 0%, rgba(201,147,131,0.03) 100%);
+    border-left: 1px solid rgba(201,147,131,0.15);
+  }
+
+  /* Inline SVG illustration of carer with elderly person */
+  .hero-illustration {
+    position: absolute;
+    right: 5%;
+    bottom: 0;
+    width: clamp(280px, 35vw, 480px);
+    opacity: 0.9;
+    animation: floatUp 1s ease forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  @keyframes floatUp { from { transform: translateY(20px); opacity:0 } to { transform:translateY(0); opacity:0.9 } }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 680px;
+    padding: 3rem 3rem 3rem 5vw;
+    animation: heroFade 0.8s ease forwards;
+  }
+  @keyframes heroFade { from { opacity:0; transform:translateX(-30px) } to { opacity:1; transform:translateX(0) } }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--rose); }
+  .hero-eyebrow-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .hero-title .accent { color: var(--rose); display: block; }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+  }
+  .hero-stat { }
+  .hero-stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--rose);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--rose);
+    color: var(--navy);
+    border: 2px solid var(--rose);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: transparent; color: var(--rose); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-outline:hover { border-color: var(--rose); color: var(--rose); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+  .scroll-indicator svg { opacity: 0.4; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    background: var(--rose);
+    padding: 1rem 3rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--navy);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .trust-item svg { flex-shrink: 0; }
+
+  /* ===== SECTION BASICS ===== */
+  section { padding: 6rem 5vw; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .section-tag-line { width: 30px; height: 1px; background: var(--rose); }
+  .section-tag-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-title .rose { color: var(--rose); }
+
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.75);
+    max-width: 700px;
+  }
+
+  /* ===== ABOUT / INTRO ===== */
+  #about { background: var(--navy-mid); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-image-wrap::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    right: 20px; bottom: 20px;
+    border: 2px solid rgba(201,147,131,0.25);
+    z-index: 0;
+  }
+  .about-image-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    left: 20px; top: 20px;
+    background: rgba(201,147,131,0.06);
+    z-index: 0;
+  }
+  .about-svg {
+    position: relative; z-index: 1;
+    width: 100%;
+    border: 1px solid rgba(201,147,131,0.2);
+  }
+
+  .about-features { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .about-feature {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 1.2rem;
+    background: rgba(201,147,131,0.06);
+    border-left: 3px solid var(--rose);
+  }
+  .about-feature-icon { color: var(--rose); flex-shrink: 0; margin-top: 0.2rem; }
+  .about-feature-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+  .about-feature-text strong { color: var(--rose); font-weight: 700; }
+
+  /* ===== WHY INVEST ===== */
+  #why { background: var(--navy); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .why-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,147,131,0.15);
+    padding: 2rem 1.8rem;
+    transition: all 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .why-card:hover { background: rgba(201,147,131,0.07); border-color: rgba(201,147,131,0.4); transform: translateY(-4px); }
+  .why-card:hover::before { transform: scaleX(1); }
+
+  .why-card-num {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: rgba(201,147,131,0.15);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .why-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .why-card-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+
+  /* ===== CALCULATOR ===== */
+  #calculator { background: var(--navy-mid); }
+
+  .calc-wrap {
+    background: rgba(3,19,41,0.8);
+    border: 1px solid rgba(201,147,131,0.2);
+    padding: 3rem;
+    margin-top: 3rem;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .calc-input-group { margin-bottom: 2.5rem; }
+  .calc-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .calc-value-display {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Slider */
+  .slider-wrap { position: relative; padding-bottom: 1.5rem; }
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(201,147,131,0.2);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--rose);
+    cursor: pointer;
+    border: 3px solid var(--navy);
+    box-shadow: 0 0 0 2px var(--rose);
+    transition: transform 0.2s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--rose);
+    cursor: pointer;
+    border: 3px solid var(--navy);
+  }
+  .slider-labels {
+    display: flex; justify-content: space-between;
+    font-family: 'Cinzel', serif; font-size: 0.6rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  /* Yield selector */
+  .yield-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .yield-tab {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,147,131,0.2);
+    color: rgba(255,255,255,0.6);
+    padding: 0.5rem 1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .yield-tab.active, .yield-tab:hover {
+    background: var(--rose);
+    color: var(--navy);
+    border-color: var(--rose);
+  }
+
+  /* Results */
+  .calc-results { }
+  .calc-result-main {
+    background: linear-gradient(135deg, rgba(201,147,131,0.12), rgba(201,147,131,0.05));
+    border: 1px solid rgba(201,147,131,0.3);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .calc-result-main .result-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .calc-result-main .result-value {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    color: var(--white);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .calc-result-main .result-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .calc-result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .calc-result-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,147,131,0.12);
+    padding: 1.2rem;
+  }
+  .calc-result-box .box-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .calc-result-box .box-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .calc-disclaimer {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.6;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ===== GOVERNMENT BACKED ===== */
+  #government {
+    background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  #government::before {
+    content: '';
+    position: absolute; top: -50%; right: -20%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,147,131,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .gov-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .gov-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .gov-stat-box {
+    background: rgba(201,147,131,0.08);
+    border: 1px solid rgba(201,147,131,0.2);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .gov-stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: var(--rose);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .gov-stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.3rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* Parliament SVG illustration */
+  .gov-illustration { position: relative; }
+
+  /* ===== HOW IT WORKS ===== */
+  #how { background: var(--navy); }
+
+  .steps-list { margin-top: 3rem; position: relative; }
+  .steps-list::before {
+    content: '';
+    position: absolute; left: 22px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--rose), transparent);
+  }
+
+  .step-item {
+    display: flex; gap: 2rem;
+    padding: 2rem 0;
+    position: relative;
+  }
+  .step-num {
+    width: 46px; height: 46px;
+    flex-shrink: 0;
+    background: var(--rose);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 900;
+    position: relative; z-index: 1;
+  }
+  .step-content { padding-top: 0.6rem; }
+  .step-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .step-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+  }
+
+  /* ===== FAQ ===== */
+  #faq { background: var(--navy-mid); }
+
+  .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .faq-item {
+    border: 1px solid rgba(201,147,131,0.15);
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .faq-item.open { border-color: rgba(201,147,131,0.5); }
+
+  .faq-q {
+    width: 100%; text-align: left;
+    background: rgba(255,255,255,0.03);
+    border: none;
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .faq-q:hover { background: rgba(201,147,131,0.06); }
+  .faq-q-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-align: left;
+    line-height: 1.4;
+  }
+  .faq-q-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: rgba(201,147,131,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose);
+    font-size: 1.2rem; font-weight: 300;
+    transition: transform 0.3s, background 0.2s;
+    margin-left: 1rem;
+  }
+  .faq-item.open .faq-q-icon { transform: rotate(45deg); background: var(--rose); color: var(--navy); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 400px; }
+  .faq-a-inner {
+    padding: 0 2rem 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    border-top: 1px solid rgba(201,147,131,0.1);
+    padding-top: 1.2rem;
+  }
+
+  /* ===== CTA SECTION ===== */
+  #cta-section {
+    background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 50%, var(--rose-dark) 100%);
+    text-align: center;
+    padding: 5rem 5vw;
+  }
+  #cta-section .cta-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--navy);
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+  #cta-section .cta-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: rgba(3,19,41,0.75);
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .btn-navy {
+    background: var(--navy);
+    color: var(--white);
+    border: 2px solid var(--navy);
+    padding: 1rem 2.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-navy:hover { background: transparent; color: var(--navy); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #010c1a;
+    padding: 4rem 5vw 2rem;
+    border-top: 1px solid rgba(201,147,131,0.15);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .footer-brand-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--rose);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  .footer-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  .footer-col-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--rose); }
+
+  .footer-contact-item {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    margin-bottom: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+  }
+  .footer-contact-item svg { color: var(--rose); flex-shrink: 0; margin-top: 3px; }
+  .footer-contact-item a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .footer-contact-item a:hover { color: var(--rose); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-legal {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.6;
+    max-width: 700px;
+  }
+  .footer-logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(201,147,131,0.5);
+    text-transform: uppercase;
+  }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-nav {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(3,19,41,0.98);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--rose); }
+  .mobile-nav-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; color: var(--rose);
+    font-size: 2rem; cursor: pointer;
+  }
+
+  /* ===== STICKY CTA ===== */
+  .sticky-cta {
+    position: fixed; bottom: 2rem; right: 2rem;
+    z-index: 80;
+    display: flex; flex-direction: column; gap: 0.8rem;
+    align-items: flex-end;
+  }
+  .sticky-btn {
+    background: var(--rose);
+    color: var(--navy);
+    border: none;
+    padding: 0.85rem 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .sticky-btn:hover { background: var(--rose-light); transform: translateX(-4px); }
+
+  /* ===== TOAST ===== */
+  #toast {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1a4a1a;
+    border: 1px solid #4caf50;
+    color: #fff;
+    padding: 1rem 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    z-index: 9000;
+    transition: transform 0.4s;
+    text-align: center;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: block; }
+    .about-grid, .gov-grid, .calc-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-illustration { opacity: 0.3; }
+    .form-row { grid-template-columns: 1fr; }
+    section { padding: 4rem 5vw; }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-content { padding: 2rem 1.5rem; }
+    .calc-wrap { padding: 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .gov-stats-grid { grid-template-columns: 1fr 1fr; }
+    .calc-result-grid { grid-template-columns: 1fr; }
+    .sticky-cta { bottom: 1rem; right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== POPUP ===== -->
+<div id="popup-overlay">
+  <div id="popup">
+    <button id="popup-close" onclick="closePopup()" aria-label="Close">&times;</button>
+    <div class="popup-badge">Exclusive Investment Opportunity</div>
+    <h2 class="popup-title">Secure Your Free Investment Pack Today</h2>
+    <p class="popup-sub">Join hundreds of investors earning NET yields of 9% to 12% from government backed returns. Enter your details and an expert will be in touch within 24 hours.</p>
+
+    <div id="popup-form-wrap">
+      <form id="popup-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-first">First Name <span style="color:var(--rose)">*</span></label>
+            <input type="text" id="p-first" name="firstName" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="p-last">Last Name <span style="color:var(--rose)">*</span></label>
+            <input type="text" id="p-last" name="lastName" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="p-phone">Mobile Number <span style="color:var(--rose)">*</span></label>
+            <div class="phone-row">
+              <select id="p-country" name="countryCode" required>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+1-CA">🇨🇦 +1 CA</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+64">🇳🇿 +64</option>
+                <option value="+353">🇮🇪 +353</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+31">🇳🇱 +31</option>
+                <option value="+41">🇨🇭 +41</option>
+                <option value="+46">🇸🇪 +46</option>
+                <option value="+47">🇳🇴 +47</option>
+                <option value="+45">🇩🇰 +45</option>
+                <option value="+358">🇫🇮 +358</option>
+                <option value="+32">🇧🇪 +32</option>
+                <option value="+43">🇦🇹 +43</option>
+                <option value="+48">🇵🇱 +48</option>
+                <option value="+351">🇵🇹 +351</option>
+                <option value="+30">🇬🇷 +30</option>
+                <option value="+420">🇨🇿 +420</option>
+                <option value="+36">🇭🇺 +36</option>
+                <option value="+40">🇷🇴 +40</option>
+                <option value="+7">🇷🇺 +7</option>
+                <option value="+380">🇺🇦 +380</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+966">🇸🇦 +966</option>
+                <option value="+974">🇶🇦 +974</option>
+                <option value="+965">🇰🇼 +965</option>
+                <option value="+973">🇧🇭 +973</option>
+                <option value="+968">🇴🇲 +968</option>
+                <option value="+972">🇮🇱 +972</option>
+                <option value="+90">🇹🇷 +90</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+92">🇵🇰 +92</option>
+                <option value="+880">🇧🇩 +880</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+60">🇲🇾 +60</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+63">🇵🇭 +63</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+852">🇭🇰 +852</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+234">🇳🇬 +234</option>
+                <option value="+254">🇰🇪 +254</option>
+                <option value="+233">🇬🇭 +233</option>
+                <option value="+20">🇪🇬 +20</option>
+                <option value="+212">🇲🇦 +212</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+56">🇨🇱 +56</option>
+                <option value="+57">🇨🇴 +57</option>
+              </select>
+              <input type="tel" id="p-phone" name="phone" placeholder="7700 900000" required />
+            </div>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="p-email">Email Address <span style="color:var(--rose)">*</span></label>
+            <input type="email" id="p-email" name="email" placeholder="john@example.com" required />
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="p-note">Your Note (Optional)</label>
+            <textarea id="p-note" name="note" placeholder="Tell us about your investment goals or any questions you have..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Request Free Investment Pack &#8594;</button>
+        <p class="form-disclaimer">Your details are kept strictly confidential. No spam. Part of Leading Property Co.</p>
+      </form>
+    </div>
+
+    <div class="form-success" id="popup-success">
+      <div class="success-icon">&#10003;</div>
+      <h3>Thank You. We Will Be in Touch Shortly.</h3>
+      <p>One of our investment specialists will contact you within 24 hours with your full investment pack.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MOBILE NAV ===== -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">&times;</button>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#why" onclick="closeMobileNav()">Why Invest</a>
+  <a href="#calculator" onclick="closeMobileNav()">Calculator</a>
+  <a href="#government" onclick="closeMobileNav()">Government Backed</a>
+  <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+  <a href="#" onclick="closeMobileNav(); openEnquiry()" style="color:var(--rose)">Enquire Now</a>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav id="main-nav">
+  <a href="#" class="nav-brand">
+    Specialist Supported Housing
+    <span>Part of Leading Property Co</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#why">Why Invest</a></li>
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#government">Gov Backed</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#" onclick="openEnquiry(); return false;" class="nav-cta">Enquire Now</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="openMobileNav()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-accent"></div>
+
+  <!-- Inline SVG: carer with elderly lady -->
+  <svg class="hero-illustration" viewBox="0 0 420 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Carer supporting elderly resident">
+    <!-- Background shape -->
+    <rect x="60" y="80" width="300" height="380" rx="4" fill="rgba(201,147,131,0.04)" stroke="rgba(201,147,131,0.12)" stroke-width="1"/>
+    <!-- Floor line -->
+    <line x1="20" y1="460" x2="400" y2="460" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+
+    <!-- ELDERLY LADY: body -->
+    <ellipse cx="160" cy="420" rx="28" ry="8" fill="rgba(201,147,131,0.1)"/>
+    <!-- legs -->
+    <line x1="150" y1="395" x2="145" y2="455" stroke="#c99383" stroke-width="9" stroke-linecap="round"/>
+    <line x1="170" y1="395" x2="175" y2="455" stroke="#c99383" stroke-width="9" stroke-linecap="round"/>
+    <!-- shoes -->
+    <ellipse cx="143" cy="456" rx="10" ry="5" fill="#7a5a50"/>
+    <ellipse cx="177" cy="456" rx="10" ry="5" fill="#7a5a50"/>
+    <!-- body torso -->
+    <rect x="133" y="310" width="54" height="90" rx="18" fill="#8b6b5e"/>
+    <!-- cardigan / top -->
+    <rect x="130" y="315" width="60" height="80" rx="16" fill="#a08070"/>
+    <!-- collar detail -->
+    <path d="M150 315 Q160 325 170 315" stroke="#c99383" stroke-width="2" fill="none"/>
+    <!-- arms: left arm (reaching for walker) -->
+    <line x1="133" y1="340" x2="90" y2="370" stroke="#c99383" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="88" cy="372" rx="8" ry="6" fill="#d4a090"/>
+    <!-- arms: right arm (held by carer) -->
+    <line x1="187" y1="340" x2="230" y2="355" stroke="#c99383" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="233" cy="357" rx="8" ry="6" fill="#d4a090"/>
+    <!-- head -->
+    <circle cx="160" cy="295" r="28" fill="#d4a090"/>
+    <!-- hair (white) -->
+    <path d="M135 285 Q140 260 160 265 Q180 260 185 285" fill="#e8e0da"/>
+    <ellipse cx="160" cy="268" rx="22" ry="10" fill="#ddd5cf"/>
+    <!-- face features -->
+    <circle cx="153" cy="292" r="3" fill="#8b6b5e"/>
+    <circle cx="167" cy="292" r="3" fill="#8b6b5e"/>
+    <path d="M154 302 Q160 308 166 302" stroke="#8b6b5e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- glasses -->
+    <rect x="148" y="287" width="10" height="8" rx="4" fill="none" stroke="#555" stroke-width="1.5"/>
+    <rect x="162" y="287" width="10" height="8" rx="4" fill="none" stroke="#555" stroke-width="1.5"/>
+    <line x1="158" y1="291" x2="162" y2="291" stroke="#555" stroke-width="1.5"/>
+    <!-- Walker / walking frame -->
+    <line x1="70" y1="370" x2="70" y2="455" stroke="#c99383" stroke-width="5" stroke-linecap="round"/>
+    <line x1="110" y1="370" x2="110" y2="455" stroke="#c99383" stroke-width="5" stroke-linecap="round"/>
+    <line x1="65" y1="370" x2="115" y2="370" stroke="#c99383" stroke-width="5" stroke-linecap="round"/>
+    <line x1="65" y1="395" x2="115" y2="395" stroke="rgba(201,147,131,0.4)" stroke-width="3"/>
+    <circle cx="70" cy="456" r="6" fill="rgba(201,147,131,0.5)"/>
+    <circle cx="110" cy="456" r="6" fill="rgba(201,147,131,0.5)"/>
+
+    <!-- CARER: body -->
+    <ellipse cx="280" cy="420" rx="28" ry="8" fill="rgba(201,147,131,0.1)"/>
+    <!-- legs -->
+    <line x1="270" y1="395" x2="265" y2="455" stroke="#1a3a6e" stroke-width="9" stroke-linecap="round"/>
+    <line x1="290" y1="395" x2="295" y2="455" stroke="#1a3a6e" stroke-width="9" stroke-linecap="round"/>
+    <ellipse cx="263" cy="456" rx="10" ry="5" fill="#0f2a5a"/>
+    <ellipse cx="297" cy="456" rx="10" ry="5" fill="#0f2a5a"/>
+    <!-- torso: scrubs / uniform -->
+    <rect x="253" y="310" width="54" height="90" rx="18" fill="#1a3a6e"/>
+    <rect x="250" y="318" width="60" height="78" rx="16" fill="#1e4080"/>
+    <!-- uniform badge -->
+    <rect x="260" y="330" width="20" height="14" rx="2" fill="rgba(201,147,131,0.6)"/>
+    <line x1="262" y1="334" x2="278" y2="334" stroke="white" stroke-width="1"/>
+    <line x1="262" y1="338" x2="272" y2="338" stroke="white" stroke-width="1"/>
+    <!-- carer left arm out toward elderly lady -->
+    <line x1="253" y1="338" x2="233" y2="358" stroke="#c99383" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="230" cy="360" rx="8" ry="6" fill="#d4a090"/>
+    <!-- carer right arm down -->
+    <line x1="307" y1="340" x2="320" y2="390" stroke="#c99383" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="321" cy="393" rx="8" ry="6" fill="#d4a090"/>
+    <!-- head -->
+    <circle cx="280" cy="292" r="30" fill="#d4a090"/>
+    <!-- hair (dark) -->
+    <path d="M252 280 Q258 255 280 258 Q302 255 308 280" fill="#3d2812"/>
+    <ellipse cx="280" cy="261" rx="25" ry="11" fill="#4a3020"/>
+    <!-- face -->
+    <circle cx="273" cy="289" r="3" fill="#6b4c3b"/>
+    <circle cx="287" cy="289" r="3" fill="#6b4c3b"/>
+    <path d="M274 300 Q280 307 286 300" stroke="#6b4c3b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- ponytail -->
+    <path d="M305 270 Q320 285 312 305" stroke="#3d2812" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+    <!-- Holding hands between them (connection point) -->
+    <ellipse cx="232" cy="359" rx="11" ry="8" fill="#c99383" opacity="0.6"/>
+
+    <!-- House / home background element -->
+    <rect x="310" y="140" width="90" height="80" rx="2" fill="rgba(201,147,131,0.06)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+    <polygon points="355,115 310,155 400,155" fill="rgba(201,147,131,0.1)" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+    <rect x="340" y="175" width="20" height="25" rx="1" fill="rgba(201,147,131,0.15)"/>
+    <rect x="315" y="155" width="20" height="18" rx="1" fill="rgba(201,147,131,0.1)"/>
+    <rect x="365" y="155" width="20" height="18" rx="1" fill="rgba(201,147,131,0.1)"/>
+
+    <!-- Government pound sign -->
+    <circle cx="355" cy="100" r="20" fill="rgba(201,147,131,0.1)" stroke="rgba(201,147,131,0.3)" stroke-width="1"/>
+    <text x="355" y="107" text-anchor="middle" fill="rgba(201,147,131,0.8)" font-size="18" font-family="Georgia">£</text>
+
+    <!-- Heart symbol -->
+    <path d="M200 130 C200 124 208 120 212 126 C216 120 224 124 224 130 C224 136 212 145 212 145 C212 145 200 136 200 130Z" fill="rgba(201,147,131,0.4)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Part of Leading Property Co</span>
+    </div>
+
+    <h1 class="hero-title">
+      Specialist<br/>
+      Supported<br/>
+      <span class="accent">Housing</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Government Backed Returns. Ethical Investing. Zero Maintenance.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">9% &ndash; 12%</div>
+        <div class="hero-stat-label">NET Yield</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">£99,950</div>
+        <div class="hero-stat-label">Prices From</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">25yr</div>
+        <div class="hero-stat-label">Lease Term</div>
+      </div>
+    </div>
+
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="openEnquiry()">
+        Request Free Pack &#8594;
+      </button>
+      <a href="#calculator" class="btn-outline">
+        Calculate Returns
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span style="letter-spacing:0.2em;font-size:0.5rem">SCROLL</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+      <path d="M7 0 L7 18 M1 12 L7 18 L13 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#031329"/></svg>
+    Government Backed Returns
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="#031329" stroke-width="2" stroke-linecap="round"/></svg>
+    Zero Maintenance Required
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#031329" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="#031329" stroke-width="2" stroke-linecap="round"/></svg>
+    NET Yields 9% to 12%
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#031329" stroke-width="2"/><polyline points="9,22 9,12 15,12 15,22" stroke="#031329" stroke-width="2"/></svg>
+    Cash Buyers Only
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#031329" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#031329" stroke-width="2" stroke-linecap="round"/></svg>
+    Prices From £99,950
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap">
+        <!-- Inline SVG: care home interior scene -->
+        <svg class="about-svg" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="480" height="360" fill="#0a1e3d"/>
+          <!-- Window -->
+          <rect x="30" y="30" width="130" height="100" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.2)" stroke-width="1.5"/>
+          <line x1="95" y1="30" x2="95" y2="130" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+          <line x1="30" y1="80" x2="160" y2="80" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+          <!-- Sun through window -->
+          <circle cx="75" cy="65" r="18" fill="rgba(201,147,131,0.15)"/>
+          <circle cx="75" cy="65" r="10" fill="rgba(201,147,131,0.25)"/>
+          <!-- Curtains -->
+          <path d="M30 30 Q50 80 38 130" fill="rgba(201,147,131,0.1)" stroke="none"/>
+          <path d="M160 30 Q140 80 152 130" fill="rgba(201,147,131,0.1)" stroke="none"/>
+
+          <!-- Armchair -->
+          <rect x="250" y="210" width="120" height="80" rx="12" fill="#1a3a6e"/>
+          <rect x="260" y="200" width="100" height="25" rx="8" fill="#1e4580"/>
+          <rect x="248" y="220" width="20" height="60" rx="6" fill="#1e4580"/>
+          <rect x="352" y="220" width="20" height="60" rx="6" fill="#1e4580"/>
+          <!-- Person in chair -->
+          <circle cx="310" cy="195" r="22" fill="#d4a090"/>
+          <path d="M291 180 Q300 162 310 165 Q320 162 329 180" fill="#c8b8b0"/>
+          <ellipse cx="310" cy="166" rx="18" ry="8" fill="#ccc0b8"/>
+          <rect x="286" y="213" width="48" height="50" rx="14" fill="#8b6b5e"/>
+          <rect x="283" y="217" width="54" height="45" rx="12" fill="#a08070"/>
+          <circle cx="304" cy="191" r="2.5" fill="#6b4c3b"/>
+          <circle cx="316" cy="191" r="2.5" fill="#6b4c3b"/>
+          <path d="M305 200 Q310 205 315 200" stroke="#6b4c3b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Book in lap -->
+          <rect x="290" y="255" width="40" height="28" rx="2" fill="#c99383" transform="rotate(-5 310 265)"/>
+          <line x1="310" y1="258" x2="308" y2="281" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+          <!-- Side table -->
+          <rect x="185" y="250" width="55" height="8" rx="3" fill="#7a5a40"/>
+          <line x1="195" y1="258" x2="193" y2="285" stroke="#7a5a40" stroke-width="4" stroke-linecap="round"/>
+          <line x1="230" y1="258" x2="232" y2="285" stroke="#7a5a40" stroke-width="4" stroke-linecap="round"/>
+          <!-- Tea cup on table -->
+          <ellipse cx="212" cy="250" rx="14" ry="6" fill="#1a3a6e"/>
+          <rect x="198" y="244" width="28" height="12" rx="4" fill="#1e4580"/>
+          <ellipse cx="212" cy="244" rx="14" ry="4" fill="#c99383" opacity="0.6"/>
+
+          <!-- Carer figure standing -->
+          <ellipse cx="130" cy="288" rx="22" ry="6" fill="rgba(201,147,131,0.08)"/>
+          <line x1="122" y1="268" x2="118" y2="288" stroke="#1a3a6e" stroke-width="8" stroke-linecap="round"/>
+          <line x1="138" y1="268" x2="142" y2="288" stroke="#1a3a6e" stroke-width="8" stroke-linecap="round"/>
+          <rect x="106" y="200" width="48" height="72" rx="14" fill="#1e4080"/>
+          <circle cx="130" cy="183" r="24" fill="#d4a090"/>
+          <path d="M108 172 Q114 152 130 155 Q146 152 152 172" fill="#3d2812"/>
+          <ellipse cx="130" cy="158" rx="21" ry="9" fill="#4a3020"/>
+          <!-- Clipboard -->
+          <rect x="148" y="215" width="25" height="32" rx="2" fill="#fff" opacity="0.9"/>
+          <rect x="151" y="211" width="19" height="6" rx="2" fill="#aaa"/>
+          <line x1="153" y1="222" x2="170" y2="222" stroke="#ccc" stroke-width="1.5"/>
+          <line x1="153" y1="228" x2="170" y2="228" stroke="#ccc" stroke-width="1.5"/>
+          <line x1="153" y1="234" x2="164" y2="234" stroke="#ccc" stroke-width="1.5"/>
+
+          <!-- Floor -->
+          <rect x="0" y="290" width="480" height="70" fill="rgba(201,147,131,0.04)"/>
+          <line x1="0" y1="290" x2="480" y2="290" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+
+          <!-- Brand watermark -->
+          <text x="240" y="345" text-anchor="middle" fill="rgba(201,147,131,0.2)" font-size="9" font-family="Georgia" letter-spacing="3">SPECIALIST SUPPORTED HOUSING</text>
+        </svg>
+      </div>
+
+      <div>
+        <div class="section-tag">
+          <div class="section-tag-line"></div>
+          <span class="section-tag-text">The Opportunity</span>
+        </div>
+        <h2 class="section-title">A New Standard of <span class="rose">Ethical Investment</span></h2>
+        <p class="section-body" style="margin-bottom:1.5rem">
+          Specialist Supported Housing provides purpose-built or adapted properties to vulnerable adults who require care and support. Local councils and central government fund the housing costs directly, providing investors with exceptionally reliable income streams backed by statutory obligation.
+        </p>
+        <p class="section-body" style="margin-bottom:2rem">
+          With NET yields of 9% to 12% per annum and leases of up to 25 years, this is one of the most compelling institutional-grade asset classes available to private investors today. Properties start from just £99,950.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
+            </div>
+            <div class="about-feature-text"><strong>Government Backed:</strong> Rent is paid by the local authority. It is a statutory duty, not a discretionary grant.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622C17.176 19.29 21 14.591 21 9c0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="about-feature-text"><strong>Full Repairing and Insuring Lease:</strong> The Housing Provider covers all maintenance, insurance and repairs. You pay nothing.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="about-feature-text"><strong>NET Yields 9% to 12%:</strong> Industry-leading returns with annual uplifts linked to CPI. Prices start from just £99,950.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem">
+          <button class="btn-primary" onclick="openEnquiry()">
+            Download Investment Brochure &#8594;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY INVEST ===== -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-tag">
+      <div class="section-tag-line"></div>
+      <span class="section-tag-text">Key Benefits</span>
+    </div>
+    <h2 class="section-title">Why Specialist Supported<br/><span class="rose">Housing?</span></h2>
+    <p class="section-body">Six compelling reasons why sophisticated investors are choosing this asset class over traditional buy to let and commercial property.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-num">01</div>
+        <div class="why-card-title">Government Backed Rent</div>
+        <div class="why-card-body">Rent is paid directly by the local authority under a statutory obligation. It is not a grant that can be withdrawn. Central government is legally required to cover costs even if a council faces financial difficulty.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">02</div>
+        <div class="why-card-title">NET Yields of 9% to 12%</div>
+        <div class="why-card-body">Three times the return of standard buy to let. Your yield is paid net of all costs. Annual uplifts are linked to CPI plus 1%, protecting your income against inflation over the full lease term.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">03</div>
+        <div class="why-card-title">Zero Maintenance</div>
+        <div class="why-card-body">The Full Repairing and Insuring lease places all responsibility for maintenance, repairs and insurance on the Housing Provider. As an investor you receive your income with no management burden whatsoever.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">04</div>
+        <div class="why-card-title">Long Term Leases</div>
+        <div class="why-card-body">Leases run for up to 25 years. The long term nature of the lease provides exceptional income security and makes this an ideal asset for retirement planning, portfolio diversification or wealth preservation.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">05</div>
+        <div class="why-card-title">Social Impact</div>
+        <div class="why-card-body">Your investment directly enables vulnerable adults to live with dignity in a safe, supported home environment. This is investing with purpose. Specialist Supported Housing costs the government significantly less than residential care.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">06</div>
+        <div class="why-card-title">Clear Exit Strategy</div>
+        <div class="why-card-body">Refinance and withdraw up to 50% of your capital after just six weeks. From Year 3 you may sell the asset on the open market. This is an institutional grade asset with genuine liquidity options.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:3rem">
+      <button class="btn-primary" onclick="openEnquiry()">Speak to an Investment Specialist &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR ===== -->
+<section id="calculator">
+  <div class="section-inner">
+    <div class="section-tag">
+      <div class="section-tag-line"></div>
+      <span class="section-tag-text">The Mathematics</span>
+    </div>
+    <h2 class="section-title">Calculate Your<br/><span class="rose">Investment Returns</span></h2>
+    <p class="section-body">Adjust the sliders below to see your projected income over any investment term of up to 25 years. Annual yield uplifts are based on CPI plus 1% at 4% per annum. These figures are for illustration purposes only.</p>
+
+    <div class="calc-wrap">
+      <div class="calc-grid">
+        <!-- INPUTS -->
+        <div>
+          <div class="calc-input-group">
+            <label class="calc-label">Investment Amount</label>
+            <div class="calc-value-display" id="disp-invest">£150,000</div>
+            <div class="slider-wrap">
+              <input type="range" id="sl-invest" min="99950" max="500000" step="50" value="150000" oninput="updateCalc()" />
+              <div class="slider-labels"><span>£99,950</span><span>£500,000</span></div>
+            </div>
+          </div>
+
+          <div class="calc-input-group">
+            <label class="calc-label">Investment Term</label>
+            <div class="calc-value-display" id="disp-term">10 Years</div>
+            <div class="slider-wrap">
+              <input type="range" id="sl-term" min="1" max="25" step="1" value="10" oninput="updateCalc()" />
+              <div class="slider-labels"><span>1 Year</span><span>25 Years</span></div>
+            </div>
+          </div>
+
+          <div class="calc-input-group">
+            <label class="calc-label" style="margin-bottom:0.8rem">Select NET Yield</label>
+            <div class="yield-tabs">
+              <button class="yield-tab" data-yield="9" onclick="selectYield(9)">9%</button>
+              <button class="yield-tab" data-yield="10" onclick="selectYield(10)">10%</button>
+              <button class="yield-tab active" data-yield="11" onclick="selectYield(11)">11%</button>
+              <button class="yield-tab" data-yield="12" onclick="selectYield(12)">12%</button>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;">
+            <button class="btn-primary" onclick="openEnquiry()">Secure This Investment &#8594;</button>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="calc-results">
+          <div class="calc-result-main">
+            <div class="result-label">Total Projected Return Over Term</div>
+            <div class="result-value" id="res-total">£0</div>
+            <div class="result-sub" id="res-sub">Including annual CPI + 1% uplifts at 4%</div>
+          </div>
+
+          <div class="calc-result-grid">
+            <div class="calc-result-box">
+              <div class="box-label">Year 1 Annual Income</div>
+              <div class="box-value" id="res-yr1">£0</div>
+            </div>
+            <div class="calc-result-box">
+              <div class="box-label">Year 1 Monthly Income</div>
+              <div class="box-value" id="res-mo">£0</div>
+            </div>
+            <div class="calc-result-box">
+              <div class="box-label">Final Year Annual Income</div>
+              <div class="box-value" id="res-final">£0</div>
+            </div>
+            <div class="calc-result-box">
+              <div class="box-label">Total Profit on Investment</div>
+              <div class="box-value" id="res-profit">£0</div>
+            </div>
+          </div>
+
+          <!-- Mini bar chart -->
+          <div id="chart-wrap" style="margin-top:1rem;"></div>
+
+          <p class="calc-disclaimer">
+            This calculator is for illustrative purposes only and does not constitute financial advice. Annual uplift assumed at 4% (CPI plus 1%). Past performance is not indicative of future results. Specialist Supported Housing is a cash purchase only investment. Please seek independent financial advice before investing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GOVERNMENT BACKED ===== -->
+<section id="government">
+  <div class="section-inner">
+    <div class="gov-grid">
+      <div>
+        <div class="section-tag">
+          <div class="section-tag-line"></div>
+          <span class="section-tag-text">Security of Income</span>
+        </div>
+        <h2 class="section-title">A Statutory<br/><span class="rose">Government Obligation</span></h2>
+        <p class="section-body" style="margin-bottom:1.5rem">
+          Under the Care Act 2014 and the Housing Act 1996, local authorities have a statutory duty to provide housing and care for vulnerable adults. This is not a discretionary programme. It cannot simply be switched off.
+        </p>
+        <p class="section-body" style="margin-bottom:1.5rem">
+          Placing individuals in Specialist Supported Housing costs the government considerably less than the alternative. Emergency hotel placements cost the public purse between £4,000 and £6,000 per month per person. Supported housing provides a vastly more cost-effective and humane solution.
+        </p>
+        <p class="section-body" style="margin-bottom:2rem">
+          Your investment is therefore not reliant on political goodwill. The obligation is embedded in statute and your income stream is secured accordingly.
+        </p>
+        <button class="btn-primary" onclick="openEnquiry()">
+          Request Full Details &#8594;
+        </button>
+      </div>
+
+      <div class="gov-illustration">
+        <!-- Inline SVG: Parliament/government building stylised -->
+        <svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+          <rect width="420" height="340" fill="rgba(10,34,72,0.4)"/>
+
+          <!-- Parliament building base -->
+          <rect x="30" y="190" width="360" height="120" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+
+          <!-- Columns -->
+          <rect x="50" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="80" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="110" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="140" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="180" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="222" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="262" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="302" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="342" y="160" width="18" height="150" rx="2" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+
+          <!-- Pediment -->
+          <polygon points="25,190 210,100 395,190" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.2)" stroke-width="1"/>
+
+          <!-- Central tower / clock tower -->
+          <rect x="180" y="30" width="60" height="135" rx="2" fill="rgba(201,147,131,0.1)" stroke="rgba(201,147,131,0.25)" stroke-width="1"/>
+          <polygon points="180,30 210,5 240,30" fill="rgba(201,147,131,0.2)" stroke="rgba(201,147,131,0.3)" stroke-width="1"/>
+          <!-- Clock face -->
+          <circle cx="210" cy="80" r="22" fill="rgba(3,19,41,0.8)" stroke="rgba(201,147,131,0.4)" stroke-width="2"/>
+          <circle cx="210" cy="80" r="2" fill="rgba(201,147,131,0.8)"/>
+          <line x1="210" y1="80" x2="210" y2="62" stroke="rgba(201,147,131,0.8)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="210" y1="80" x2="224" y2="87" stroke="rgba(201,147,131,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Door -->
+          <rect x="190" y="255" width="40" height="55" rx="20 20 0 0" fill="rgba(201,147,131,0.15)" stroke="rgba(201,147,131,0.3)" stroke-width="1"/>
+
+          <!-- Windows in main building -->
+          <rect x="60" y="205" width="25" height="30" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="100" y="205" width="25" height="30" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="290" y="205" width="25" height="30" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+          <rect x="330" y="205" width="25" height="30" rx="2" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.15)" stroke-width="1"/>
+
+          <!-- Ground / steps -->
+          <rect x="0" y="308" width="420" height="32" fill="rgba(201,147,131,0.04)" stroke="rgba(201,147,131,0.1)" stroke-width="1"/>
+          <rect x="10" y="300" width="400" height="12" fill="rgba(201,147,131,0.05)"/>
+
+          <!-- Stars / sky -->
+          <circle cx="50" cy="40" r="2" fill="rgba(201,147,131,0.4)"/>
+          <circle cx="370" cy="30" r="1.5" fill="rgba(201,147,131,0.3)"/>
+          <circle cx="390" cy="55" r="1" fill="rgba(201,147,131,0.2)"/>
+          <circle cx="30" cy="70" r="1.5" fill="rgba(201,147,131,0.3)"/>
+          <circle cx="350" cy="65" r="2" fill="rgba(201,147,131,0.3)"/>
+
+          <!-- Government shield / crest -->
+          <path d="M200 135 L220 135 L225 155 L210 165 L195 155 Z" fill="rgba(201,147,131,0.2)" stroke="rgba(201,147,131,0.4)" stroke-width="1"/>
+          <text x="210" y="154" text-anchor="middle" fill="rgba(201,147,131,0.7)" font-size="10" font-family="Georgia">£</text>
+        </svg>
+
+        <div class="gov-stats-grid">
+          <div class="gov-stat-box">
+            <div class="gov-stat-num">£4,000+</div>
+            <div class="gov-stat-label">Monthly cost of emergency hotel placement per person</div>
+          </div>
+          <div class="gov-stat-box">
+            <div class="gov-stat-num">25yr</div>
+            <div class="gov-stat-label">Maximum lease term available</div>
+          </div>
+          <div class="gov-stat-box">
+            <div class="gov-stat-num">100%</div>
+            <div class="gov-stat-label">Rent paid by local authority</div>
+          </div>
+          <div class="gov-stat-box">
+            <div class="gov-stat-num">£0</div>
+            <div class="gov-stat-label">Maintenance cost to investor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how" style="background: var(--navy)">
+  <div class="section-inner">
+    <div class="section-tag">
+      <div class="section-tag-line"></div>
+      <span class="section-tag-text">The Process</span>
+    </div>
+    <h2 class="section-title">How It<br/><span class="rose">Works</span></h2>
+    <p class="section-body">From initial enquiry to your first government backed rental payment. The process is straightforward and fully supported by our team at Leading Property Co.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-top:3rem; align-items:start">
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-title">Request Your Free Investment Pack</div>
+            <div class="step-body">Complete the short enquiry form and an investment specialist from Leading Property Co will contact you within 24 hours with a full brochure detailing available properties.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-title">Select Your Property</div>
+            <div class="step-body">Browse our current portfolio of specialist supported housing units. Properties start from £99,950 and carry NET yields between 9% and 12% per annum.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-title">Legal Completion</div>
+            <div class="step-body">Your solicitor reviews and completes the purchase. This is a straightforward cash purchase. Our team supports you and your legal representative at every stage.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-title">Lease Signed. Income Begins.</div>
+            <div class="step-body">The Housing Provider signs the Full Repairing and Insuring lease. Your government backed rental income begins immediately. You receive quarterly or annual payments depending on the arrangement selected.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <div class="step-title">Sit Back. Receive Income.</div>
+            <div class="step-body">With zero maintenance obligations and an FCA registered provider managing the property, you simply receive your income year after year with full annual uplifts.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline SVG: property investment flow diagram -->
+      <svg viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:380px; margin:0 auto; display:block">
+        <!-- Flow: Investor > Property > Provider > Council > Back to Investor -->
+        <!-- Investor box -->
+        <rect x="130" y="20" width="120" height="60" rx="3" fill="rgba(201,147,131,0.12)" stroke="rgba(201,147,131,0.4)" stroke-width="1.5"/>
+        <text x="190" y="46" text-anchor="middle" fill="#c99383" font-size="11" font-family="Georgia" font-style="italic">Investor</text>
+        <text x="190" y="63" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="9" font-family="Georgia">Cash Purchase</text>
+
+        <!-- Arrow down -->
+        <line x1="190" y1="80" x2="190" y2="110" stroke="rgba(201,147,131,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <polygon points="185,110 195,110 190,120" fill="rgba(201,147,131,0.5)"/>
+
+        <!-- Property box -->
+        <rect x="110" y="118" width="160" height="60" rx="3" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.3)" stroke-width="1.5"/>
+        <text x="190" y="143" text-anchor="middle" fill="white" font-size="11" font-family="Georgia">Specialist Property</text>
+        <text x="190" y="162" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="Georgia">From £99,950</text>
+
+        <!-- Arrow down -->
+        <line x1="190" y1="178" x2="190" y2="208" stroke="rgba(201,147,131,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <polygon points="185,208 195,208 190,218" fill="rgba(201,147,131,0.5)"/>
+
+        <!-- Housing Provider box -->
+        <rect x="100" y="218" width="180" height="60" rx="3" fill="rgba(201,147,131,0.08)" stroke="rgba(201,147,131,0.3)" stroke-width="1.5"/>
+        <text x="190" y="243" text-anchor="middle" fill="white" font-size="11" font-family="Georgia">FCA Housing Provider</text>
+        <text x="190" y="262" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="Georgia">FRI Lease Signed</text>
+
+        <!-- Arrow down -->
+        <line x1="190" y1="278" x2="190" y2="308" stroke="rgba(201,147,131,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <polygon points="185,308 195,308 190,318" fill="rgba(201,147,131,0.5)"/>
+
+        <!-- Government box -->
+        <rect x="90" y="318" width="200" height="60" rx="3" fill="rgba(10,34,72,0.8)" stroke="rgba(201,147,131,0.5)" stroke-width="1.5"/>
+        <text x="190" y="343" text-anchor="middle" fill="#c99383" font-size="11" font-family="Georgia" font-weight="bold">Local Authority</text>
+        <text x="190" y="362" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-family="Georgia">Pays Rent (Statutory Duty)</text>
+
+        <!-- Arrow back up left side -->
+        <path d="M90 348 Q30 348 30 200 Q30 52 130 52" stroke="rgba(201,147,131,0.5)" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+        <polygon points="125,47 135,52 125,57" fill="rgba(201,147,131,0.5)"/>
+        <!-- Label on return arrow -->
+        <text x="22" y="205" fill="rgba(201,147,131,0.8)" font-size="9" font-family="Georgia" writing-mode="tb">NET Yield 9% to 12%</text>
+      </svg>
+    </div>
+
+    <div style="text-align:center; margin-top:3rem">
+      <button class="btn-primary" onclick="openEnquiry()">Start Your Investment Journey &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-tag">
+      <div class="section-tag-line"></div>
+      <span class="section-tag-text">Investor Questions</span>
+    </div>
+    <h2 class="section-title">Frequently Asked<br/><span class="rose">Questions</span></h2>
+    <p class="section-body">Everything you need to know before making your investment decision. If your question is not answered here, please contact us directly.</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">Is the government funding secure over the long term?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Yes. The UK government holds a statutory obligation to provide housing and care for vulnerable adults. This duty is embedded in legislation under the Care Act 2014 and the Housing Act 1996. It is not a budget line that can be removed at the discretion of a local council. Even in times of austerity the obligation to house and care for vulnerable people remains in force.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">Why is this investment for cash buyers only?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            High street mortgage lenders do not typically finance properties operating under commercial leases designed for vulnerable care provision. This is an institutional grade asset class, not a conventional buy to let investment. Cash purchase is the standard route for this type of asset and is part of what makes the returns so compelling. No mortgage interest payments means your full NET yield flows directly to you.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">How is the rent level kept sustainable over the long term?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Specialist Supported Housing saves the government a substantial amount of money compared to the alternatives. Keeping an individual in an emergency hotel costs the public purse between £4,000 and £6,000 per month. Keeping a person in a hospital bed costs even more. Supporting an individual in specialist housing is far more cost effective. This means the government has a strong financial incentive to maintain the programme in addition to its legal obligation to do so.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">How secure is the government funding really?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            It is a statutory obligation, not a grant or a discretionary programme. Even if a local council faces severe financial difficulty, central government is legally required to step in and ensure costs are covered. This is not a promise that depends on political will. It is a legal duty enshrined in statute. This distinction is critical for investors evaluating the security of their income stream.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">What happens if my housing provider fails?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            We partner exclusively with FCA registered housing providers. In the event that a provider encounters difficulty or ceases trading, the regulator has a mandated safety net mechanism in place. A replacement provider is required to step in immediately to assume management of the lease. Your income stream and the occupants of the property are protected throughout. The regulatory framework exists specifically to prevent investor and occupant disruption in such scenarios.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">What are my exit options as an investor?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            There are two primary exit routes available to investors. First, you may refinance the property and withdraw up to 50% of your original capital after just six weeks from completion. Second, from Year 3 onwards you are free to sell the asset on the open market. The property comes with an existing government backed lease in place which makes it an attractive proposition for other investors looking to acquire an income producing asset.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-q">
+          <span class="faq-q-text">Is zero maintenance genuinely the case?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Yes. The Full Repairing and Insuring lease is a legally binding document that places the entire responsibility for all maintenance, insurance and repairs onto the Housing Provider. As an investor you carry no obligation to fund or organise any work on the property at any point during the lease term. This is one of the most attractive features of this asset class when compared to conventional buy to let property, where maintenance costs can significantly erode net returns.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:3rem">
+      <button class="btn-primary" onclick="openEnquiry()">Have a Question? Contact Us &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section id="cta-section">
+  <div class="section-inner" style="text-align:center">
+    <div class="cta-title">Ready to Earn 9% to 12% NET?</div>
+    <p class="cta-sub">Join a growing number of investors securing government backed returns from Specialist Supported Housing. Prices from £99,950.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap">
+      <button class="btn-navy" onclick="openEnquiry()">
+        Request Free Investment Pack &#8594;
+      </button>
+      <a href="/cdn-cgi/l/email-protection#157c7b737a55666570767c74797c666166666065657a676170717d7a60667c7b723b767a78" class="btn-navy" style="text-decoration:none">
+        Email Us Directly
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Specialist Supported Housing</div>
+      <div class="footer-brand-sub">Part of Leading Property Co</div>
+      <p class="footer-desc">
+        We connect private investors with institutional-grade specialist supported housing opportunities delivering government backed NET yields of 9% to 12% per annum. Properties from £99,950. Cash buyers only.
+      </p>
+      <div style="margin-top:1.5rem">
+        <button class="btn-outline" onclick="openEnquiry()" style="font-size:0.65rem; padding:0.7rem 1.5rem">
+          Request Information Pack
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#about">About This Investment</a></li>
+        <li><a href="#why">Why Invest</a></li>
+        <li><a href="#calculator">Return Calculator</a></li>
+        <li><a href="#government">Government Backing</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Contact Us</div>
+      <div class="footer-contact-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-top:2px"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <a href="/cdn-cgi/l/email-protection#0e676068614e7d7e6b6d676f62677d7a7d7d7b7e7e617c7a6b6a66617b7d676069206d6163"><span class="__cf_email__" data-cfemail="6801060e07281b180d0b010904011b1c1b1b1d1818071a1c0d0c00071d1b01060f460b0705">[email&#160;protected]</span></a>
+      </div>
+      <div class="footer-contact-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-top:2px"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 4h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Part of Leading Property Co</span>
+      </div>
+      <div style="margin-top:1.5rem">
+        <button class="btn-primary" onclick="openEnquiry()" style="padding:0.7rem 1.4rem; font-size:0.65rem">
+          Enquire Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-legal">
+      This website is for information purposes only and does not constitute financial advice. Specialist Supported Housing investments carry risks and are suitable for sophisticated or high net worth investors only. Past performance is not a guide to future results. Capital is at risk. Please seek independent financial and legal advice before investing. Part of Leading Property Co. &copy; 2025 All rights reserved.
+    </p>
+    <div class="footer-logo-text">Leading Property Co</div>
+  </div>
+</footer>
+
+<!-- ===== STICKY CTA ===== -->
+<div class="sticky-cta">
+  <button class="sticky-btn" onclick="openEnquiry()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    Free Investment Pack
+  </button>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast">&#10003; &nbsp; Enquiry received. We will be in touch within 24 hours.</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ===== GOOGLE SHEETS SUBMISSION =====
+const FORMSPREE_URL = 'https://formspree.io/f/mbdzqdgn';
+
+// ===== POPUP =====
+function closePopup() {
+  document.getElementById('popup-overlay').style.display = 'none';
+}
+function openEnquiry() {
+  document.getElementById('popup-overlay').style.display = 'flex';
+  document.getElementById('popup-form-wrap').style.display = 'block';
+  document.getElementById('popup-success').style.display = 'none';
+  document.getElementById('popup-form').reset();
+}
+// Prevent closing on overlay click accidentally closing early
+document.getElementById('popup-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+// Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePopup();
+});
+
+// ===== FORM SUBMISSION =====
+document.getElementById('popup-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  // Basic validation
+  const firstName = form.firstName.value.trim();
+  const lastName = form.lastName.value.trim();
+  const phone = form.phone.value.trim();
+  const email = form.email.value.trim();
+  const countryCode = form.countryCode.value;
+  const note = form.note.value.trim();
+
+  if (!firstName || !lastName || !phone || !email) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  const btn = form.querySelector('.btn-submit');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const payload = {
+    firstName, lastName,
+    phone: countryCode + ' ' + phone,
+    email, note,
+    timestamp: new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' }),
+    source: 'Specialist Supported Housing Microsite'
+  };
+
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(r) {
+    console.log('Formspree response:', r.status);
+  }).catch(function(err) {
+    console.log('Formspree error:', err);
+  });
+
+  // Show success state
+  document.getElementById('popup-form-wrap').style.display = 'none';
+  document.getElementById('popup-success').style.display = 'block';
+
+  showToast();
+  setTimeout(closePopup, 4000);
+});
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 5000);
+}
+
+// ===== MOBILE NAV =====
+function openMobileNav() { document.getElementById('mobile-nav').classList.add('open'); }
+function closeMobileNav() { document.getElementById('mobile-nav').classList.remove('open'); }
+
+// ===== STICKY NAV =====
+window.addEventListener('scroll', function() {
+  const nav = document.getElementById('main-nav');
+  if (window.scrollY > 60) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+});
+
+// ===== FAQ =====
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ===== YIELD SELECTOR =====
+let currentYield = 11;
+function selectYield(y) {
+  currentYield = y;
+  document.querySelectorAll('.yield-tab').forEach(t => {
+    t.classList.toggle('active', parseInt(t.dataset.yield) === y);
+  });
+  updateCalc();
+}
+
+// ===== CALCULATOR =====
+function fmt(n) {
+  return '£' + Math.round(n).toLocaleString('en-GB');
+}
+
+function updateCalc() {
+  const invest = parseFloat(document.getElementById('sl-invest').value);
+  const term = parseInt(document.getElementById('sl-term').value);
+  const yld = currentYield / 100;
+  const annualUplift = 0.04; // CPI + 1%
+
+  document.getElementById('disp-invest').textContent = fmt(invest);
+  document.getElementById('disp-term').textContent = term + (term === 1 ? ' Year' : ' Years');
+
+  const yr1 = invest * yld;
+  let total = 0;
+  let yearlyData = [];
+  for (let i = 0; i < term; i++) {
+    const income = yr1 * Math.pow(1 + annualUplift, i);
+    total += income;
+    yearlyData.push(income);
+  }
+  const finalYear = yearlyData[yearlyData.length - 1];
+  const profit = total - invest;
+
+  document.getElementById('res-yr1').textContent = fmt(yr1);
+  document.getElementById('res-mo').textContent = fmt(yr1 / 12);
+  document.getElementById('res-final').textContent = fmt(finalYear);
+  document.getElementById('res-total').textContent = fmt(total);
+  document.getElementById('res-profit').textContent = fmt(profit);
+  document.getElementById('res-sub').textContent =
+    fmt(invest) + ' invested at ' + currentYield + '% over ' + term + ' year' + (term > 1 ? 's' : '');
+
+  renderMiniChart(yearlyData);
+}
+
+function renderMiniChart(data) {
+  const wrap = document.getElementById('chart-wrap');
+  if (data.length < 2) { wrap.innerHTML = ''; return; }
+  const maxV = Math.max(...data);
+  const barW = Math.max(4, Math.min(24, Math.floor(280 / data.length) - 2));
+  const chartH = 70;
+  let bars = '';
+  data.forEach((v, i) => {
+    const h = Math.round((v / maxV) * chartH);
+    const x = i * (barW + 2);
+    bars += `<rect x="${x}" y="${chartH - h}" width="${barW}" height="${h}" fill="rgba(201,147,131,${0.3 + 0.5 * (i / data.length)})" rx="1"/>`;
+  });
+  const totalW = data.length * (barW + 2);
+  wrap.innerHTML = `
+    <div style="margin-bottom:0.4rem">
+      <span style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.15em;color:rgba(255,255,255,0.4);text-transform:uppercase">Annual Income Projection (Years 1 to ${data.length})</span>
+    </div>
+    <svg viewBox="0 0 ${totalW} ${chartH + 4}" style="width:100%;height:${chartH + 4}px" preserveAspectRatio="none">
+      ${bars}
+    </svg>`;
+}
+
+// Init
+updateCalc();
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.why-card, .step-item, .faq-item, .about-feature, .gov-stat-box').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+
+<!-- Google Apps Script note for developer -->
+<!--
+  SETUP INSTRUCTIONS FOR GOOGLE SHEETS INTEGRATION:
+  1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/1Or4UGz4oTGJ-ntxNZ4gUuQQppNM78zydvZp_EvPCSTo/edit
+  2. Go to Extensions > Apps Script
+  3. Paste this code:
+
+  function doGet(e) {
+    try {
+      var p = e.parameter;
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(['Timestamp','First Name','Last Name','Phone','Email','Note','Source']);
+      }
+      sheet.appendRow([p.timestamp, p.firstName, p.lastName, p.phone, p.email, p.note || '', p.source || '']);
+
+      MailApp.sendEmail({
+        to: 'arturs.jefimovs@leadingpropertyco.com',
+        subject: 'New SSH Enquiry: ' + p.firstName + ' ' + p.lastName,
+        htmlBody:
+          '<h2 style="color:#031329">New Investment Enquiry</h2>' +
+          '<p><b>Name:</b> ' + p.firstName + ' ' + p.lastName + '</p>' +
+          '<p><b>Phone:</b> ' + p.phone + '</p>' +
+          '<p><b>Email:</b> ' + p.email + '</p>' +
+          '<p><b>Note:</b> ' + (p.note || 'None provided') + '</p>' +
+          '<p><b>Time:</b> ' + p.timestamp + '</p>'
+      });
+
+      return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
+    } catch(err) {
+      return ContentService.createTextOutput('error: ' + err.toString()).setMimeType(ContentService.MimeType.TEXT);
+    }
+  }
+
+  4. Click Deploy > New Deployment > Web App
+  5. Set Execute as: Me, Who has access: Anyone
+  6. Authorise the script when prompted (this is required for MailApp to send emails)
+  7. The deployment URL is already set in the HTML above.
+-->
+</body>
+</html>
